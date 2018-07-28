@@ -1,10 +1,9 @@
 FORMAT: 1A
 HOST: http://private-4e69c-nihimoto1.apiary-mock.com/
 
-# nihimoto1
+# toast music
 
 試し書き中
-hoge
 
 ##  ログイン
 
@@ -13,55 +12,15 @@ hoge
 
 ### List All Lives [GET]
 
++ Request
+
 + Response 200 (application/json)
+    + Attributes(live)
 
-    + Attributes (UserCredentials)
++ Response 401 (text/plain)
 
-### Create a New Question [POST]
+        There is no such a message for you, dear guest.
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
 
 ## オススメ：AppleMusic [/recomend/apple_music]
 
@@ -75,82 +34,57 @@ TODO
 
 TODO
 
+## コピペ用 [/hoge]
 
-## Questions Collection [/questions]
+ドキュメント記述時のコピペ用に置いているダミーです
 
-### List All Questions [GET]
+### Sample [GET]
+
++ Request
+    + Attributes (Sample2)
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
     + Headers
+            Location: /questions/1
+    + Attributes (Sample1)
 
-            Location: /questions/2
 
-    + Body
++ Response 401 (text/plain)
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+        There is no such a message for you, dear guest.
 
 # Data Structures
-## UserCredentials
+
+## live
++ id: `999` (number) - primary key
++ origin: `eplus` (string) - ライブ情報取得元サイト eplus, pla, ... TODO 値リスト
++ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 TODO 意味あってる？／日付形式要確認
++ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時 TODO 意味あってる？／日付形式要確認
++ venue: `新宿RUIDO.K4` (string) - 会場名
++ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ venue_detail_id: `999` (number) - 会場ID
++ venue_detail (venueDetail)
++ admin_status: `1` (number) - 管理ステータス？ TODO これは何？
++ created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
+
+## venue
+
+## venueDetail
++ id: `999` (number) - primary key
+
+## ticket
+
+
+## user
+
+
+## Sample1
 + email: `foo@bar.com` (string) - Email Adress
 + password: `secret` (string) -Password
++ choices (array[Sample2], required)
+
+## Sample2
++ email2: `foo@bar.com` (string) - Email Adress
++ password2: `secret` (string) -Password
