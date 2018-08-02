@@ -5,34 +5,160 @@ HOST: http://private-4e69c-nihimoto1.apiary-mock.com/
 
 試し書き中
 
-##  ログイン
+クロール側DBについては下記を参照  
+https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%AB%E9%96%A2%E9%80%A3DB%E3%81%AE%E8%AA%AC%E6%98%8E
+
+クロール側DBを元にしているがweb用にカスタマイズされる予定
 
 
-## Live [/lives]
+## Login [/v1/signin]
 
-### List All Lives [GET]
+### (TODO) Login by Twitter [POST]
+ツイッターのトークンでログインもしくは新規登録する
 
 + Request
+    + Attributes (Sample2)
 
 + Response 200 (application/json)
-    + Attributes(live)
+    + Headers
+    + Attributes (Sample1)
 
-+ Response 401 (text/plain)
+## User [/v1/users/{id}]
 
-        There is no such a message for you, dear guest.
+### get user [GET]
+指定したユーザーの情報を返す
+
++ Parameters
+    + id: `999` (number) - ユーザーID
+
++ Response 200 (application/json)
+    + Attributes(user)
+
+## Self [/v1/users/me]
+
+### get me [GET]
+ログインしているユーザーの情報を返す
+
++ Response 200 (application/json)
+    + Attributes(user)
+
+### put me [PUT]
+ログインしているユーザーの情報を変更する
+
++ Response 200 (application/json)
+    + Attributes(user)
 
 
-## オススメ：AppleMusic [/recomend/apple_music]
+## User Lives [/v1/users/me/lives]
+ログイン中のユーザーが参加するorしたライブ一覧を取得
 
-TODO
+### List User Live [GET]
 
-## オススメ：Soitify [/recomend/spotify]
++ Request
+    + Attributes
+        + mode: `reserved` (string) - reserved:参加する予定のライブ、joined:参加したライブ
+        + page: `2` (number) - ページ番号
 
-TODO
++ Response 200 (application/json)
+    + Attributes(listLives)
 
-## オススメ：Twitter [/recomend/twitter]
+## User Artists [/v1/users/me/artists]
+ログイン中のユーザーがフォローしたアーティストの一覧を取得
 
-TODO
+### List User Artists [GET]
+
++ Request
+    + Attributes
+        + page: `2` (number) - ページ番号
+
++ Response 200 (application/json)
+    + Attributes(listArtists)
+
+## Notices [/v1/users/me/notifications]
+通知タブ用のライブ一覧
+ログイン中のユーザーに対する通知を取得
+
+### Recommend from Twitter [GET]
+
++ Request
+    + Attributes
+        + page: `2` (number) - ページ番号
+
++ Response 200 (application/json)
+    + Attributes(listLives)
+
+
+## Live [/v1/lives]
+
+### List Lives [GET]
+ライブの一覧を取得or検索する
+
++ Request
+    + Attributes
+        + mode: `plan` (string) - plan:予定 , history:履歴
+        + artist_id: `999` (number) - アーティストIDで検索
+        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
+        + prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
+        + page: `2` (number) - ページ番号
+
++ Response 200 (application/json)
+    + Attributes(listLives)
+
+## Live [/v1/lives/{id}]
+
+### Get Live [GET]
+ライブの情報を取得する
+
++ Parameters
+    + id: `999` (number) - ライブID
+
++ Response 200 (application/json)
+    + Attributes(lives)
+
+
+## Recommend Lives from AppleMusic [/v1/lives/recomends/apple_music]
+AppleMusicの情報を使っておすすめライブを返す
+
+### (TODO) Recommend from AppleMusic [POST]
+
++ Request
+    + Attributes (Sample2)
+
++ Response 200 (application/json)
+
+    + Headers
+    + Attributes (Sample1)
+
+## Recommend Lives from Soitify [/v1/lives/recomends/spotify]
+Soitifyの情報を使っておすすめライブを返す
+
+### (TODO) Recommend from Soitify [POST]
+
++ Request
+    + Attributes (Sample2)
+
++ Response 200 (application/json)
+
+    + Headers
+    + Attributes (Sample1)
+
+## Recommend Lives from Twitter [/v1/lives/recomends/twitter]
+Twitterの情報を使っておすすめライブを返す
+
+### (TODO) Recommend from Twitter [POST]
+
++ Request
+    + Attributes (Sample2)
+
++ Response 200 (application/json)
+
+    + Headers
+    + Attributes (Sample1)
+
+
+
+
+
 
 ## コピペ用 [/hoge]
 
@@ -46,9 +172,7 @@ TODO
 + Response 200 (application/json)
 
     + Headers
-            Location: /questions/1
     + Attributes (Sample1)
-
 
 + Response 401 (text/plain)
 
@@ -56,29 +180,150 @@ TODO
 
 # Data Structures
 
-## live
+## listLives
++ data (array[lives])
++ links (links)
++ meta (meta)
+
+## listArtists
++ data (array[artists])
++ links (links)
++ meta (meta)
+
+## artistsLives
 + id: `999` (number) - primary key
-+ origin: `eplus` (string) - ライブ情報取得元サイト eplus, pla, ... TODO 値リスト
-+ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 TODO 意味あってる？／日付形式要確認
-+ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時 TODO 意味あってる？／日付形式要確認
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson
++ artist_code: `0000068621` (string) - origin別の次の3点のcode -> artist.pia_code, artist_eplus_code, artist_lawson_code
++ playguide_code: `eplus-1620118` (string) - artistに紐づく、playguide_code
++ artist_id: `999` (number) -  artistsテーブルのid。
++ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証 TODO 冗長？
++ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証 TODO 冗長？
++ live_id: `999` (number) -  liveテーブルのid。
++ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
+
+## lives
++ id: `999` (number) - primary key
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson
++ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
++ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + venue: `新宿RUIDO.K4` (string) - 会場名
 + prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
-+ admin_status: `1` (number) - 管理ステータス？ TODO これは何？
++ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
 
-## venue
-
 ## venueDetail
 + id: `999` (number) - primary key
++ title: `新宿RUIDO.K4` (string) - 会場名
++ content: `?` (string) - TODO これは何？
++ categories: `livehouse` (string) - 種別 TODO 値のリスト作成
++ geo_longitude: `139.704413` (string) - 経度
++ geo_latitude: `35.694762` (string) - 緯度
++ tel: `0352925125` (string) - 電話番号
++ url: `http://www.ruido.org/k4/` (string) - URL
++ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ address: `新宿区 歌舞伎町1-2-13 新光ビルb2` (string) - 住所
++ zip: `160-0021` (string) - 郵便番号
++ access: `◆jr山手線「新宿駅」から徒歩 ◆東京メトロ副都心線「新宿三丁目駅」から徒歩` (string) - アクセス
++ stations: `最寄り駅` (string) - 新宿 新宿三丁目
++ areas: `tokyo kanto shinjuku` (string) - 地域 TODO これは何？何で使うデータか？ルールは？
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
++ status: `1` (number) - ステータス？ TODO これは何？
 
-## ticket
+## artists
++ id: `999` (number) - primary key
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson
++ eplus_code: `0000119821` (string) - eplusのコード
++ pia_code: `11018206` (string) - ぴあのコード
++ lawson_code: `` (string) - lawsonのコード
++ toast_code: `` (string) - toastのコード（想定 TODO 内容未定義
++ name: `クリス(ex.TEDDY)` (string) - アーティスト名
++ thesaurus: `1.G.K,ワンジーケイ,ワンジーケー,KATSU,KATSU(1.G.K)` (string) -  よみがな・ニックネーム等(内部検索用)
++ homepage: `http://1gk-music.com/` (string) - ホームページのURL
++ youtube: `https://www.youtube.com/channel/UCGR0e1RszXH_EgDPv6rpOAQ` (string) - YouTubeのURL
++ facebook: `https://www.facebook.com/1gkband` (string) - FacebookのURL 
++ twitter: `https://twitter.com/1gkband` (string) - twitterのURL
++ profile: `テキサス出身のクリスチャン･メタルコアバンド。` (string) - 紹介文
++ status: `9` (number) - ステータス／0: クロール、及び表示対象外 1: クロール、及び表示対象。地域別おすすめリストの表示対象 2: クロール、及び表示対象。地域別おすすめリストの表示対象外 9: 未振り分け（初期値）。人間による操作で、0〜2のステータスに変更する
++ memo: `` (string) - 管理用メモ
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 
+## playguides
++ id: `999` (number) - primary key 
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 
++ live_id: `999` (number) - 紐づくliveのPK
++ playguide_code: `eplus-1620118` (string) -  3社ごとに、同一公演であることを期待して付与したコード／ユニークではない
++ offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
++ name: `吉田凜音` (string) -  公演名
++ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証
++ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証
++ venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
++ venue: `会場名` (string) -  会場名／livesと同一を保証
++ prefecture: `東京都` (string) - 都道府県／Liveと同一を保証 TODO IDなどではなく日本語テキスト？
++ admin_status: `999` (number) - TODO 未定義
++ initial_artist_id: `999` (number) - rtists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
+
+
+## artLastfms
++ id: `999` (number) - primary key
++ lastfm_code: `7dc36fa0-31c7-4c1d-b399-3db415c8cf73` (text) -  laft_fm内のartist管理コード
++ artist_id: `999` (number) -  artistsテーブルのid。
++ name_lastfm: `水になれば、` (string) -  lastfmのAPIから得たアーティスト名
++ image_mega: `https://lastfm-img2.akamaized.net/i/u/300x300/f9e77e416c244e3ba96e40e7182a4b99.png` (string) -  lastfmのAPIから得た画像URL。UI表示に使用
++ image_large: `https://lastfm-img2.akamaized.net/i/u/300x300/f9e77e416c244e3ba96e40e7182a4b99.png` (string) -  lastfmのAPIから得た画像URL。UIに使用しない
++ status: `9` (number) - 情報ステータス。利用可能か否か等を管理（予定）／0: 利用不可 1: 利用可（default値）
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
+
+## tickets
++ id: `999` (number) - primary key
++ origin: `eplus` (string) - 取得元サイト pia, eplus, lawson 
++ playguide_id: `999` (number) - 紐づくPlayguideのPK／1つのplayguideに、複数のticketsが紐づく
++ ticket_code: `3537842` (string) - 同一チケット情報であることを期待して付与したコード。　TODO web側ではユニークになるようにするべき？
++ offer_url: `http://feeds.eplus.jp/v2/tickets/3551953` (string) - TODO 削除？
++ offer_code: `http://feeds.eplus.jp/v2/tickets/3551953` (string) - TODO 削除？
++ offer_name: `一般発売` (string) - TODO 使用方法要検討／PUSH通知時の表示要素として使う可能性あり？
++ offer_type: `first_come` (string) - 先着受付（first_come）、又は抽選受付（lottery）
++ offer_status: `first_come` (string) - クロール時点での受付状況／未使用 TODO 削除？
++ offer_start_at: `June 09, 2018 01:00` (string) - 受付開始日時
++ offer_must_end_at: `July 11, 2018 09:00` (string) - 最遅の受付終了日時
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
+
+
+## seats
++ id: `999` (number) - primary key
++ ticket_id: `999` (number) - 紐づくticketのPK／1つのticketに、複数のseatsが紐づく
++ price: `999` (number) - 価格
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 
 ## user
++ id: `999` (number) - primary key
++ sex: `femail` (string) - 男女 mail:男 femail:女
++ birthday: `1999-01-01` - 誕生日
++ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
 
+## links
++ first: `http://example.com/pagination?page=1` (string) - 先頭のページのURL
++ last: `http://example.com/pagination?page=30` (string) - 最後のページのURL
++ prev: `http://example.com/pagination?page=5` (string) - 前のページのURL
++ next: `http://example.com/pagination?page=7` (string) - 次のページのURL
+
+## meta
++ current_page: `1` (number) - 現在のページ番号+ current_page: `1` (number) - 現在のページ番号
++ from: `1` (number) - 最初のページ番号
++ last_page: `1` (number) - 最後のページ番号
++ path: `1` (string) - ベースURL
++ per_page: `15` (number) - 1ページあたりの件数
++ to: `1` (number) - TODO ？
++ total: `1` (number) - TODO ？
 
 ## Sample1
 + email: `foo@bar.com` (string) - Email Adress
