@@ -63,9 +63,10 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
     + Attributes(listLives)
 
 ## User Artists [/v1/users/me/artists]
-ログイン中のユーザーがフォローしたアーティストの一覧を取得
+ログイン中のユーザーがフォローしたアーティスト関連
 
 ### List User Artists [GET]
+一覧を取得
 
 + Request
     + Attributes
@@ -74,21 +75,39 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 + Response 200 (application/json)
     + Attributes(listArtists)
 
-## Notices [/v1/users/me/notifications]
-通知タブ用のライブ一覧
-ログイン中のユーザーに対する通知を取得
+### Follow Artists [POST]
+指定したアーティストをフォローする
 
-### Recommend from Twitter [GET]
++ Request
+    + Attributes
+        + artist_id: `1` (number) - アーティストID
+
+
+### Unfollow Artists [DELETE]
+指定したアーティストをフォロー解除する
+
++ Request
+    + Attributes
+        + artist_id: `1` (number) - アーティストID
+
+
+
+
+## Notifications [/v1/users/me/notifications]
+通知タブ用のライブ一覧
+ログイン中のユーザーに対するライブの通知を取得
+
+### get notifications [GET]
 
 + Request
     + Attributes
         + page: `2` (number) - ページ番号
 
 + Response 200 (application/json)
-    + Attributes(listLives)
+    + Attributes(listNotifications)
 
 
-## Live [/v1/lives]
+## Lives [/v1/lives]
 
 ### List Lives [GET]
 ライブの一覧を取得or検索する
@@ -155,9 +174,31 @@ Twitterの情報を使っておすすめライブを返す
     + Headers
     + Attributes (Sample1)
 
+## Airtists [/v1/artists]
+
+### List Lives [GET]
+アーティストの一覧を取得or検索する
+
++ Request
+    + Attributes
+        + artist_id: `999` (number) - アーティストIDで検索
+        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
+        + page: `2` (number) - ページ番号
+
++ Response 200 (application/json)
+    + Attributes(listArtists)
 
 
+## Airtist [/v1/artists/{id}]
 
+### List Lives [GET]
+特定のアーティストの情報を取得する
+
++ Parameters
+    + id: `999` (number) - アーティストID
+
++ Response 200 (application/json)
+    + Attributes(artists)
 
 
 ## コピペ用 [/hoge]
@@ -186,44 +227,54 @@ Twitterの情報を使っておすすめライブを返す
 + meta (meta)
 
 ## listArtists
-+ data (array[artists])
++ data (array[artistsSimple])
 + links (links)
 + meta (meta)
 
-## artistsLives
-+ id: `999` (number) - primary key
-+ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson
-+ artist_code: `0000068621` (string) - origin別の次の3点のcode -> artist.pia_code, artist_eplus_code, artist_lawson_code
-+ playguide_code: `eplus-1620118` (string) - artistに紐づく、playguide_code
-+ artist_id: `999` (number) -  artistsテーブルのid。
-+ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証 TODO 冗長？
-+ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証 TODO 冗長？
-+ live_id: `999` (number) -  liveテーブルのid。
-+ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
+## listNotifications
++ data (array[notifications])
++ links (links)
++ meta (meta)
 
 ## lives
 + id: `999` (number) - primary key
-+ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 　TODO たぶんアプリでは不要、削除「？
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
-+ venue: `新宿RUIDO.K4` (string) - 会場名
++ lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
 + prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ venue: `新宿RUIDO.K4` (string) - 会場名
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
 + admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
++ artists (array[artists])
++ playguides (array[playguides])
+
+## livesSimples
++ id: `999` (number) - primary key
++ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 　TODO たぶんアプリでは不要、削除「？
++ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
++ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
++ lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
++ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ venue: `新宿RUIDO.K4` (string) - 会場名
++ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
++ created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
++ artists (array[artistsSimple])
 
 ## venueDetail
 + id: `999` (number) - primary key
 + title: `新宿RUIDO.K4` (string) - 会場名
-+ content: `?` (string) - TODO これは何？
-+ categories: `livehouse` (string) - 種別 TODO 値のリスト作成
++ content: `?` (string) - 補足文字情報 TODO アプリ側では不要、削除？
++ categories: `livehouse` (string) - 種別 TODO アプリ側では不要、削除？
 + geo_longitude: `139.704413` (string) - 経度
 + geo_latitude: `35.694762` (string) - 緯度
-+ tel: `0352925125` (string) - 電話番号
-+ url: `http://www.ruido.org/k4/` (string) - URL
-+ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ tel: `0352925125` (string) - 電話番号 TODO アプリ側では不要、削除？
++ url: `http://www.ruido.org/k4/` (string) - URL TODO アプリ側では不要、削除？
++ prefecture: `東京都` (string) - 都道府県
 + address: `新宿区 歌舞伎町1-2-13 新光ビルb2` (string) - 住所
 + zip: `160-0021` (string) - 郵便番号
 + access: `◆jr山手線「新宿駅」から徒歩 ◆東京メトロ副都心線「新宿三丁目駅」から徒歩` (string) - アクセス
@@ -231,7 +282,7 @@ Twitterの情報を使っておすすめライブを返す
 + areas: `tokyo kanto shinjuku` (string) - 地域 TODO これは何？何で使うデータか？ルールは？
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
-+ status: `1` (number) - ステータス？ TODO これは何？
++ status: `1` (number) - 利用可否ステータス TODO 1のだけ渡すならアプリ側では不要、削除？
 
 ## artists
 + id: `999` (number) - primary key
@@ -240,7 +291,10 @@ Twitterの情報を使っておすすめライブを返す
 + pia_code: `11018206` (string) - ぴあのコード
 + lawson_code: `` (string) - lawsonのコード
 + toast_code: `` (string) - toastのコード（想定 TODO 内容未定義
++ thumbnail: `https://hogehoge.com/mogemoge.jpg` (string) - サムネイル画像／artLastFmsから取得予定
 + name: `クリス(ex.TEDDY)` (string) - アーティスト名
++ name_ruby: `clis` (string) - 読み仮名のアルファベット表記（半角・小文字）
++ alphabetical_key: `c` (string) - 並び順用のキー／基本的にはルビの最初の１文字（アルファベット用）／[a-z][0-9]以外は#を入れる
 + thesaurus: `1.G.K,ワンジーケイ,ワンジーケー,KATSU,KATSU(1.G.K)` (string) -  よみがな・ニックネーム等(内部検索用)
 + homepage: `http://1gk-music.com/` (string) - ホームページのURL
 + youtube: `https://www.youtube.com/channel/UCGR0e1RszXH_EgDPv6rpOAQ` (string) - YouTubeのURL
@@ -251,6 +305,20 @@ Twitterの情報を使っておすすめライブを返す
 + memo: `` (string) - 管理用メモ
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
++ is_followed: `true` (boolean) - フォロー済みかどうかのフラグ
+
+
+## artistsSimple
++ id: `999` (number) - primary key
++ toast_code: `` (string) - toastのコード（想定 TODO 内容未定義
++ thumbnail: `https://hogehoge.com/mogemoge.jpg` (string) - サムネイル画像／artLastFmsから取得予定
++ name: `クリス(ex.TEDDY)` (string) - アーティスト名
++ thesaurus: `1.G.K,ワンジーケイ,ワンジーケー,KATSU,KATSU(1.G.K)` (string) -  よみがな・ニックネーム等(内部検索用)
++ status: `9` (number) - ステータス／0: クロール、及び表示対象外 1: クロール、及び表示対象。地域別おすすめリストの表示対象 2: クロール、及び表示対象。地域別おすすめリストの表示対象外 9: 未振り分け（初期値）。人間による操作で、0〜2のステータスに変更する
++ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
++ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
++ is_followed: `true` (boolean) - フォロー済みかどうかのフラグ
+
 
 ## playguides
 + id: `999` (number) - primary key 
@@ -268,18 +336,8 @@ Twitterの情報を使っておすすめライブを返す
 + initial_artist_id: `999` (number) - rtists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
++ tickets (array[tickets])
 
-
-## artLastfms
-+ id: `999` (number) - primary key
-+ lastfm_code: `7dc36fa0-31c7-4c1d-b399-3db415c8cf73` (text) -  laft_fm内のartist管理コード
-+ artist_id: `999` (number) -  artistsテーブルのid。
-+ name_lastfm: `水になれば、` (string) -  lastfmのAPIから得たアーティスト名
-+ image_mega: `https://lastfm-img2.akamaized.net/i/u/300x300/f9e77e416c244e3ba96e40e7182a4b99.png` (string) -  lastfmのAPIから得た画像URL。UI表示に使用
-+ image_large: `https://lastfm-img2.akamaized.net/i/u/300x300/f9e77e416c244e3ba96e40e7182a4b99.png` (string) -  lastfmのAPIから得た画像URL。UIに使用しない
-+ status: `9` (number) - 情報ステータス。利用可能か否か等を管理（予定）／0: 利用不可 1: 利用可（default値）
-+ created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
-+ updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 
 ## tickets
 + id: `999` (number) - primary key
@@ -295,7 +353,7 @@ Twitterの情報を使っておすすめライブを返す
 + offer_must_end_at: `July 11, 2018 09:00` (string) - 最遅の受付終了日時
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
-
++ seats (array[seats])
 
 ## seats
 + id: `999` (number) - primary key
@@ -309,6 +367,12 @@ Twitterの情報を使っておすすめライブを返す
 + sex: `femail` (string) - 男女 mail:男 femail:女
 + birthday: `1999-01-01` - 誕生日
 + prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
+
+## notifications
++ id: `999` (number) - primary key
++ type: `update_live` (string) - 通知の種類／update_live:ライブ情報の更新 TODO 他のケースもある？
++ message: `東京スカパラダイスオーケストラがライブ情報を更新しました` (string) - 表示メッセージ
++ lives (lives)
 
 ## links
 + first: `http://example.com/pagination?page=1` (string) - 先頭のページのURL
