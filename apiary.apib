@@ -34,7 +34,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 + Response 200 (application/json)
     + Attributes(user)
 
-## Self [/v1/users/me]
+## User/Me [/v1/users/me]
 
 ### get me [GET]
 ログインしているユーザーの情報を返す
@@ -50,9 +50,9 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 
 ## User Lives [/v1/users/me/lives]
-ログイン中のユーザーが参加するorしたライブ一覧を取得
 
 ### List User Live [GET]
+ログイン中のユーザーが参加するorしたライブ一覧を取得
 
 + Request
     + Attributes
@@ -63,10 +63,9 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
     + Attributes(listLives)
 
 ## User Artists [/v1/users/me/artists]
-ログイン中のユーザーがフォローしたアーティスト関連
 
 ### List User Artists [GET]
-一覧を取得
+ログイン中のユーザーがフォローしたアーティスト一覧
 
 + Request
     + Attributes
@@ -82,6 +81,8 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
     + Attributes
         + artist_id: `1` (number) - アーティストID
 
++ Response 204 (application/json)
+
 
 ### Unfollow Artists [DELETE]
 指定したアーティストをフォロー解除する
@@ -90,14 +91,13 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
     + Attributes
         + artist_id: `1` (number) - アーティストID
 
-
++ Response 204 (application/json)
 
 
 ## Notifications [/v1/users/me/notifications]
-通知タブ用のライブ一覧
-ログイン中のユーザーに対するライブの通知を取得
 
 ### get notifications [GET]
+ログイン中のユーザーに対する通知を取得する
 
 + Request
     + Attributes
@@ -117,7 +117,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
         + mode: `plan` (string) - plan:予定 , history:履歴
         + artist_id: `999` (number) - アーティストIDで検索
         + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
-        + prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
+        + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
         + page: `2` (number) - ページ番号
 
 + Response 200 (application/json)
@@ -126,7 +126,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 ## Live [/v1/lives/{id}]
 
 ### Get Live [GET]
-ライブの情報を取得する
+特定のライブの情報を取得する
 
 + Parameters
     + id: `999` (number) - ライブID
@@ -136,9 +136,9 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 
 ## Recommend Lives from AppleMusic [/v1/lives/recomends/apple_music]
-AppleMusicの情報を使っておすすめライブを返す
 
 ### (TODO) Recommend from AppleMusic [POST]
+AppleMusicの情報を使っておすすめライブを返す
 
 + Request
     + Attributes (Sample2)
@@ -149,9 +149,9 @@ AppleMusicの情報を使っておすすめライブを返す
     + Attributes (Sample1)
 
 ## Recommend Lives from Soitify [/v1/lives/recomends/spotify]
-Soitifyの情報を使っておすすめライブを返す
 
 ### (TODO) Recommend from Soitify [POST]
+Soitifyの情報を使っておすすめライブを返す
 
 + Request
     + Attributes (Sample2)
@@ -162,9 +162,9 @@ Soitifyの情報を使っておすすめライブを返す
     + Attributes (Sample1)
 
 ## Recommend Lives from Twitter [/v1/lives/recomends/twitter]
-Twitterの情報を使っておすすめライブを返す
 
 ### (TODO) Recommend from Twitter [POST]
+Twitterの情報を使っておすすめライブを返す
 
 + Request
     + Attributes (Sample2)
@@ -174,9 +174,9 @@ Twitterの情報を使っておすすめライブを返す
     + Headers
     + Attributes (Sample1)
 
-## Airtists [/v1/artists]
+## Artists [/v1/artists]
 
-### List Lives [GET]
+### List Artists [GET]
 アーティストの一覧を取得or検索する
 
 + Request
@@ -191,7 +191,7 @@ Twitterの情報を使っておすすめライブを返す
 
 ## Airtist [/v1/artists/{id}]
 
-### List Lives [GET]
+### Get Artist [GET]
 特定のアーティストの情報を取得する
 
 + Parameters
@@ -242,7 +242,7 @@ Twitterの情報を使っておすすめライブを返す
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
-+ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + venue: `新宿RUIDO.K4` (string) - 会場名
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
@@ -258,7 +258,7 @@ Twitterの情報を使っておすすめライブを返す
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
-+ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + venue: `新宿RUIDO.K4` (string) - 会場名
 + admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
@@ -274,7 +274,7 @@ Twitterの情報を使っておすすめライブを返す
 + geo_latitude: `35.694762` (string) - 緯度
 + tel: `0352925125` (string) - 電話番号 TODO アプリ側では不要、削除？
 + url: `http://www.ruido.org/k4/` (string) - URL TODO アプリ側では不要、削除？
-+ prefecture: `東京都` (string) - 都道府県
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + address: `新宿区 歌舞伎町1-2-13 新光ビルb2` (string) - 住所
 + zip: `160-0021` (string) - 郵便番号
 + access: `◆jr山手線「新宿駅」から徒歩 ◆東京メトロ副都心線「新宿三丁目駅」から徒歩` (string) - アクセス
@@ -331,7 +331,7 @@ Twitterの情報を使っておすすめライブを返す
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証
 + venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
 + venue: `会場名` (string) -  会場名／livesと同一を保証
-+ prefecture: `東京都` (string) - 都道府県／Liveと同一を保証 TODO IDなどではなく日本語テキスト？
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + admin_status: `999` (number) - TODO 未定義
 + initial_artist_id: `999` (number) - rtists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
@@ -366,7 +366,7 @@ Twitterの情報を使っておすすめライブを返す
 + id: `999` (number) - primary key
 + sex: `femail` (string) - 男女 mail:男 femail:女
 + birthday: `1999-01-01` - 誕生日
-+ prefecture: `東京都` (string) - 都道府県 TODO IDなどではなく日本語テキスト？
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 
 ## notifications
 + id: `999` (number) - primary key
