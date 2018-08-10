@@ -13,15 +13,20 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 ## Login [/v1/signin]
 
-### (TODO) Login by Twitter [POST]
-ツイッターのトークンでログインもしくは新規登録する
+### Login by Twitter [POST]
+ツイッターのトークンでログインもしくは新規登録をする。
+未登録のtwitterアカウントなら新規登録を行った後に、ログイントークンを返し、登録済みの場合には既存のトークンを返す
 
 + Request
-    + Attributes (Sample2)
+    + Attributes
+        + token: `xxxxxxx` (string) - twitterから取得したtoken
+        + `token_secret`: `xxxxxxx` (string) - twitterから取得したtoken_secret
 
 + Response 200 (application/json)
     + Headers
-    + Attributes (Sample1)
+    + Attributes
+        - `token`: `xxxxx` (string) - ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす
+        - user(user)
 
 ## User [/v1/users/{id}]
 
@@ -279,7 +284,7 @@ Twitterの情報を使っておすすめライブを返す
 + zip: `160-0021` (string) - 郵便番号
 + access: `◆jr山手線「新宿駅」から徒歩 ◆東京メトロ副都心線「新宿三丁目駅」から徒歩` (string) - アクセス
 + stations: `最寄り駅` (string) - 新宿 新宿三丁目
-+ areas: `tokyo kanto shinjuku` (string) - 地域 TODO これは何？何で使うデータか？ルールは？
++ area_code: `3` (number) - 地域コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + status: `1` (number) - 利用可否ステータス TODO 1のだけ渡すならアプリ側では不要、削除？
@@ -325,6 +330,8 @@ Twitterの情報を使っておすすめライブを返す
 + origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 
 + live_id: `999` (number) - 紐づくliveのPK
 + playguide_code: `eplus-1620118` (string) -  3社ごとに、同一公演であることを期待して付与したコード／ユニークではない
++ offers_status: `before-lottery` (string) - 受付状況。紐づくticketsの情報から判断して適切な値を返す／no-information=表示無し、before-lottery=抽選受付前、on-lottery=抽選受付前、before-firstcome=先着受付前、on-firstcome=先着受付中、all-finished=受付終了
++ offers_date: `10/25(水) 18:00〜` (string) - 受付状況とセットで表示するための日付文字列／受付状況に応じて適切なticketsの日付が使用される
 + offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
 + name: `吉田凜音` (string) -  公演名
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証
