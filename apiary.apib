@@ -244,6 +244,7 @@ Twitterの情報を使っておすすめライブを返す
 ## lives
 + id: `999` (number) - primary key
 + origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 　TODO たぶんアプリでは不要、削除「？
++ name: `吉田凜音` (string) -  公演名
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
@@ -260,6 +261,7 @@ Twitterの情報を使っておすすめライブを返す
 ## livesSimples
 + id: `999` (number) - primary key
 + origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 　TODO たぶんアプリでは不要、削除「？
++ name: `吉田凜音` (string) -  公演名
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
@@ -333,7 +335,7 @@ Twitterの情報を使っておすすめライブを返す
 + offers_status: `before-lottery` (string) - 受付状況。紐づくticketsの情報から判断して適切な値を返す／no-information=表示無し、before-lottery=抽選受付前、on-lottery=抽選受付前、before-firstcome=先着受付前、on-firstcome=先着受付中、all-finished=受付終了
 + offers_date: `10/25(水) 18:00〜` (string) - 受付状況とセットで表示するための日付文字列／受付状況に応じて適切なticketsの日付が使用される
 + offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
-+ name: `吉田凜音` (string) -  公演名
++ name: `吉田凜音` (string) -  公演名／ライブ名としてはlives.nameの方を使用してください
 + show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証
 + venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
