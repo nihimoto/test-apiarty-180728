@@ -120,8 +120,6 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 + Request
     + Attributes
         + mode: `plan` (string) - plan:予定 , history:履歴
-        + artist_id: `999` (number) - アーティストIDで検索
-        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
         + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
         + page: `2` (number) - ページ番号
 
@@ -206,6 +204,21 @@ Twitterの情報を使っておすすめライブを返す
     + Attributes(artists)
 
 
+
+## Lives from Artists [/v1/artists/lives]
+
+### Get List Lives from Artist [GET]
+アーティストの情報を起点にしてライブの一覧を取得or検索する
+
++ Request
+    + Attributes
+        + artist_id: `999` (number) - アーティストIDで検索
+        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
+        + page: `2` (number) - ページ番号
+
++ Response 200 (application/json)
+    + Attributes(listLives)
+
 ## コピペ用 [/hoge]
 
 ドキュメント記述時のコピペ用に置いているダミーです
@@ -228,18 +241,45 @@ Twitterの情報を使っておすすめライブを返す
 
 ## listLives
 + data (array[lives])
-+ links (links)
-+ meta (meta)
++ first_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 最初のページのURL
++ prev_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 前のページのURL
++ current_page: `1` (number) - 現在のページ番号
++ next_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 次のページのURL
++ last_page: `23` (number) - 最後のページ番号
++ last_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 最後のページのURL
++ from: `1` (number) - ページ内の最初の並び順番号（IDではなくリスト中の並び順）
++ to: `5` (number) - ページ内の最後の並び順番号（IDではなくリスト中の並び順）
++ total: `114` (number) - リストの内の全個数
++ path: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - ベースとなるAPIのURL
++ per_page: `5` (number) - ページあたりの表示件数
 
 ## listArtists
 + data (array[artistsSimple])
-+ links (links)
-+ meta (meta)
++ first_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 最初のページのURL
++ prev_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 前のページのURL
++ current_page: `1` (number) - 現在のページ番号
++ next_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 次のページのURL
++ last_page: `23` (number) - 最後のページ番号
++ last_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 最後のページのURL
++ from: `1` (number) - ページ内の最初の並び順番号（IDではなくリスト中の並び順）
++ to: `5` (number) - ページ内の最後の並び順番号（IDではなくリスト中の並び順）
++ total: `114` (number) - リストの内の全個数
++ path: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - ベースとなるAPIのURL
++ per_page: `5` (number) - ページあたりの表示件数
 
 ## listNotifications
 + data (array[notifications])
-+ links (links)
-+ meta (meta)
++ first_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 最初のページのURL
++ prev_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=1` (string) - 前のページのURL
++ current_page: `1` (number) - 現在のページ番号
++ next_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 次のページのURL
++ last_page: `23` (number) - 最後のページ番号
++ last_page_url: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - 最後のページのURL
++ from: `1` (number) - ページ内の最初の並び順番号（IDではなくリスト中の並び順）
++ to: `5` (number) - ページ内の最後の並び順番号（IDではなくリスト中の並び順）
++ total: `114` (number) - リストの内の全個数
++ path: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - ベースとなるAPIのURL
++ per_page: `5` (number) - ページあたりの表示件数
 
 ## lives
 + id: `999` (number) - primary key
