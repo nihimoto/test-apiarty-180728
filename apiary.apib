@@ -291,47 +291,28 @@ Twitterの情報を使っておすすめライブを返す
 + doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
 + lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
 + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
-+ venue: `新宿RUIDO.K4` (string) - 会場名
++ area_code: `1` (number) - エリアコード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
-+ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
 + artists (array[artists])
 + playguides (array[playguides])
 
-## livesSimples
-+ id: `999` (number) - primary key
-+ origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 　TODO たぶんアプリでは不要、削除「？
-+ name: `吉田凜音` (string) -  公演名
-+ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時 
-+ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時
-+ lowest price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
-+ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
-+ venue: `新宿RUIDO.K4` (string) - 会場名
-+ admin_status: `1` (number) - 管理ステータス。未定義 TODO 用途検討
-+ created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
-+ updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
-+ artists (array[artistsSimple])
-
 ## venueDetail
 + id: `999` (number) - primary key
++ origin_venue_detail_code: `eplus-hogehoge` (string) - 3社別会場コード
 + title: `新宿RUIDO.K4` (string) - 会場名
-+ content: `?` (string) - 補足文字情報 TODO アプリ側では不要、削除？
-+ categories: `livehouse` (string) - 種別 TODO アプリ側では不要、削除？
 + geo_longitude: `139.704413` (string) - 経度
 + geo_latitude: `35.694762` (string) - 緯度
 + tel: `0352925125` (string) - 電話番号 TODO アプリ側では不要、削除？
 + url: `http://www.ruido.org/k4/` (string) - URL TODO アプリ側では不要、削除？
-+ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + address: `新宿区 歌舞伎町1-2-13 新光ビルb2` (string) - 住所
 + zip: `160-0021` (string) - 郵便番号
 + access: `◆jr山手線「新宿駅」から徒歩 ◆東京メトロ副都心線「新宿三丁目駅」から徒歩` (string) - アクセス
 + stations: `最寄り駅` (string) - 新宿 新宿三丁目
-+ area_code: `3` (number) - 地域コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
-+ status: `1` (number) - 利用可否ステータス TODO 1のだけ渡すならアプリ側では不要、削除？
 
 ## artists
 + id: `999` (number) - primary key
@@ -339,7 +320,6 @@ Twitterの情報を使っておすすめライブを返す
 + eplus_code: `0000119821` (string) - eplusのコード
 + pia_code: `11018206` (string) - ぴあのコード
 + lawson_code: `` (string) - lawsonのコード
-+ toast_code: `` (string) - toastのコード（想定 TODO 内容未定義
 + thumbnail: `https://hogehoge.com/mogemoge.jpg` (string) - サムネイル画像／artLastFmsから取得予定
 + name: `クリス(ex.TEDDY)` (string) - アーティスト名
 + name_ruby: `clis` (string) - 読み仮名のアルファベット表記（半角・小文字）
@@ -350,8 +330,6 @@ Twitterの情報を使っておすすめライブを返す
 + facebook: `https://www.facebook.com/1gkband` (string) - FacebookのURL 
 + twitter: `https://twitter.com/1gkband` (string) - twitterのURL
 + profile: `テキサス出身のクリスチャン･メタルコアバンド。` (string) - 紹介文
-+ status: `9` (number) - ステータス／0: クロール、及び表示対象外 1: クロール、及び表示対象。地域別おすすめリストの表示対象 2: クロール、及び表示対象。地域別おすすめリストの表示対象外 9: 未振り分け（初期値）。人間による操作で、0〜2のステータスに変更する
-+ memo: `` (string) - 管理用メモ
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + is_followed: `true` (boolean) - フォロー済みかどうかのフラグ
@@ -359,11 +337,11 @@ Twitterの情報を使っておすすめライブを返す
 
 ## artistsSimple
 + id: `999` (number) - primary key
-+ toast_code: `` (string) - toastのコード（想定 TODO 内容未定義
 + thumbnail: `https://hogehoge.com/mogemoge.jpg` (string) - サムネイル画像／artLastFmsから取得予定
 + name: `クリス(ex.TEDDY)` (string) - アーティスト名
++ name_ruby: `clis` (string) - 読み仮名のアルファベット表記（半角・小文字）
++ alphabetical_key: `c` (string) - 並び順用のキー／基本的にはルビの最初の１文字（アルファベット用）／[a-z][0-9]以外は#を入れる
 + thesaurus: `1.G.K,ワンジーケイ,ワンジーケー,KATSU,KATSU(1.G.K)` (string) -  よみがな・ニックネーム等(内部検索用)
-+ status: `9` (number) - ステータス／0: クロール、及び表示対象外 1: クロール、及び表示対象。地域別おすすめリストの表示対象 2: クロール、及び表示対象。地域別おすすめリストの表示対象外 9: 未振り分け（初期値）。人間による操作で、0〜2のステータスに変更する
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + is_followed: `true` (boolean) - フォロー済みかどうかのフラグ
@@ -377,14 +355,8 @@ Twitterの情報を使っておすすめライブを返す
 + offers_status: `before-lottery` (string) - 受付状況。紐づくticketsの情報から判断して適切な値を返す／no-information=表示無し、before-lottery=抽選受付前、on-lottery=抽選受付前、before-firstcome=先着受付前、on-firstcome=先着受付中、all-finished=受付終了
 + offers_date: `10/25(水) 18:00〜` (string) - 受付状況とセットで表示するための日付文字列／受付状況に応じて適切なticketsの日付が使用される
 + offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
-+ name: `吉田凜音` (string) -  公演名／ライブ名としてはlives.nameの方を使用してください
-+ show_start_at: `July 19, 2018 18:30` (string) - 公演開始日時／livesと同一を保証
-+ doors_open_at: `July 19, 2018 18:00` (string) - 開場開始日時／livesと同一を保証
 + venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
-+ venue: `会場名` (string) -  会場名／livesと同一を保証
-+ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
-+ admin_status: `999` (number) - TODO 未定義
-+ initial_artist_id: `999` (number) - rtists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
++ initial_artist_id: `999` (number) - artists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + tickets (array[tickets])
@@ -395,11 +367,7 @@ Twitterの情報を使っておすすめライブを返す
 + origin: `eplus` (string) - 取得元サイト pia, eplus, lawson 
 + playguide_id: `999` (number) - 紐づくPlayguideのPK／1つのplayguideに、複数のticketsが紐づく
 + ticket_code: `3537842` (string) - 同一チケット情報であることを期待して付与したコード。　TODO web側ではユニークになるようにするべき？
-+ offer_url: `http://feeds.eplus.jp/v2/tickets/3551953` (string) - TODO 削除？
-+ offer_code: `http://feeds.eplus.jp/v2/tickets/3551953` (string) - TODO 削除？
-+ offer_name: `一般発売` (string) - TODO 使用方法要検討／PUSH通知時の表示要素として使う可能性あり？
 + offer_type: `first_come` (string) - 先着受付（first_come）、又は抽選受付（lottery）
-+ offer_status: `first_come` (string) - クロール時点での受付状況／未使用 TODO 削除？
 + offer_start_at: `June 09, 2018 01:00` (string) - 受付開始日時
 + offer_must_end_at: `July 11, 2018 09:00` (string) - 最遅の受付終了日時
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
