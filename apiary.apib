@@ -10,6 +10,19 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 クロール側DBを元にしているがweb用にカスタマイズされる予定
 
+## SampeError [/v1/error]
+
+## エラー発生時のResponseサンプル[GET]
+エラーが発生したときは全エンドポイントで下記の共通フォーマットで返却する。内容はエラー次第だが形式は統一する
+
+
++ Request
+
++ Response 404 (application/json)
+    + Headers
+    + Attributes
+        - error(error)
+
 
 ## Login [/v1/signin]
 
@@ -27,6 +40,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
     + Attributes
         - `token`: `xxxxx` (string) - ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす
         - user(user)
+
 
 ## User [/v1/users/{id}]
 
@@ -393,11 +407,9 @@ Twitterの情報を使っておすすめライブを返す
 + message: `東京スカパラダイスオーケストラがライブ情報を更新しました` (string) - 表示メッセージ
 + lives (lives)
 
-## links
-+ first: `http://example.com/pagination?page=1` (string) - 先頭のページのURL
-+ last: `http://example.com/pagination?page=30` (string) - 最後のページのURL
-+ prev: `http://example.com/pagination?page=5` (string) - 前のページのURL
-+ next: `http://example.com/pagination?page=7` (string) - 次のページのURL
+## error
++ status: `404` (number) - ステータスコード／ヘッダーにも同じものが入っている
++ message: `not found` (string) - エラーの内容を示すテキスト
 
 ## meta
 + current_page: `1` (number) - 現在のページ番号
