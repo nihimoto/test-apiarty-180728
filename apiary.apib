@@ -353,8 +353,7 @@ Twitterの情報を使っておすすめライブを返す
 + origin: `eplus` (string) - ライブ情報取得元サイト pia, eplus, lawson 
 + live_id: `999` (number) - 紐づくliveのPK
 + playguide_code: `eplus-1620118` (string) -  3社ごとに、同一公演であることを期待して付与したコード／ユニークではない
-+ offers_status: `before-lottery` (string) - 受付状況。紐づくticketsの情報から判断して適切な値を返す／no-information=表示無し、before-lottery=抽選受付前、on-lottery=抽選受付前、before-firstcome=先着受付前、on-firstcome=先着受付中、all-finished=受付終了
-+ offers_date: `10/25(水) 18:00〜` (string) - 受付状況とセットで表示するための日付文字列／受付状況に応じて適切なticketsの日付が使用される
++ offers (offers)
 + offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
 + venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
 + initial_artist_id: `999` (number) - artists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
@@ -362,6 +361,10 @@ Twitterの情報を使っておすすめライブを返す
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + tickets (array[tickets])
 
+## offers
++ status: `before-lottery` (string) - 受付状況。紐づくticketsの情報から判断して適切な値を返す／no-information=表示無し、before-lottery=抽選受付前、on-lottery=抽選受付前、before-firstcome=先着受付前、on-firstcome=先着受付中、all-finished=受付終了
++ status_text: `抽選受付前` (string) - 受付状況を表示するための文字列
++ date_text: `10/25(水) 18:00〜` (string) - 受付状況とセットで表示するための日付文字列／受付状況に応じて適切なticketsの日付が使用される
 
 ## tickets
 + id: `999` (number) - primary key
