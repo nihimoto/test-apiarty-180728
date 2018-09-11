@@ -23,22 +23,31 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
         - error(error)
 
 
-## Login [/v1/signin]
+## Login [/v1/user/token]
 
-### Login by Twitter [POST]
-ツイッターのトークンでログインもしくは新規登録をする。
-未登録のtwitterアカウントなら新規登録を行った後に、ログイントークンを返し、登録済みの場合には既存のトークンを返す
+### get Token [GET]
 
-+ Request
-    + Attributes
-        + token: `xxxxxxx` (string) - twitterから取得したtoken
-        + `token_secret`: `xxxxxxx` (string) - twitterから取得したtoken_secret
+認証tokenを生成して取得する
 
 + Response 200 (application/json)
     + Headers
     + Attributes
-        - `token`: `xxxxx` (string) - ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす
-        - user(user)
+        + api_token: `xxxxx` (string) - 'ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす'
+
+## Login [/v1/user/signin/twitter]
+
+### Login by Twitter [POST]
+ツイッターのトークンでログインもしくは登録をする。
+
++ Request
+    + Attributes
+        + access_token: `xxxxxxx` (string) - twitterから取得したaccess token
+        + `access_token_secret`: `xxxxxxx` (string) - twitterから取得した access token_secret
+
++ Response 200 (application/json)
+    + Headers
+    + Attributes
+        + api_token: `xxxxx` (string) - 'ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす'
 
 
 ## User [/v1/users/{id}]
@@ -387,7 +396,7 @@ Twitterの情報を使っておすすめライブを返す
 
 ## user
 + id: `999` (number) - primary key
-+ sex: `femail` (string) - 男女 mail:男 femail:女
++ sex: `femail` (string) - 男女 mail:男 femail:女 other:その他
 + birthday: `1999-01-01` - 誕生日
 + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 
