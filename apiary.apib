@@ -25,15 +25,6 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 ## Login [/v1/user/token]
 
-### get Token [GET]
-
-認証tokenを生成して取得する
-
-+ Response 200 (application/json)
-    + Headers
-    + Attributes
-        + api_token: `xxxxx` (string) - 'ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす'
-
 ## Login [/v1/user/signin/twitter]
 
 ### Login by Twitter [POST]
@@ -46,8 +37,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 + Response 200 (application/json)
     + Headers
-    + Attributes
-        + api_token: `xxxxx` (string) - 'ログイン用に発行したトークン／このトークンをヘッダー（Authorization: Bearer XXXXXXX）に付与することで以後ログイン済みとみなす'
+    + Attributes(userWithToken)
 
 
 ## User [/v1/users/{id}]
@@ -399,6 +389,13 @@ Twitterの情報を使っておすすめライブを返す
 + sex: `femail` (string) - 男女 mail:男 femail:女 other:その他
 + birthday: `1999-01-01` - 誕生日
 + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
+
+## userWithToken
++ id: `999` (number) - primary key
++ sex: `femail` (string) - 男女 mail:男 femail:女 other:その他
++ birthday: `1999-01-01` - 誕生日
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
++ api_token: `4b38c468a0ce939b2e0e4250af5c51a8f5e43e89cb35e7bd877d4ca1af968ce7` (string) - 認証トークン／このトークンをheaderにつけることで認証を通る／ログインの度に変更される／例）Authorization: Bearer 2ea80763eccfc98a487e14582fd31055b7f05c35e9520ee332462e47ed90790f
 
 ## notifications
 + id: `999` (number) - primary key
