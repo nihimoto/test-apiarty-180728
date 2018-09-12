@@ -68,16 +68,63 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 ## User Lives [/v1/users/me/lives]
 
-### List User Live [GET]
+### list User Live [GET]
 ログイン中のユーザーが参加するorしたライブ一覧を取得
 
 + Request
     + Attributes
-        + mode: `reserved` (string) - reserved:参加する予定のライブ、joined:参加したライブ
+        + mode: `plan` (string) - plan:予定 , history:履歴
         + page: `2` (number) - ページ番号
 
 + Response 200 (application/json)
     + Attributes(listLives)
+
+
+### join Live [POST]
+
+指定したライブに参加する
+
++ Request
+    + Attributes
+        + live_id: `999` (number) - ライブID
+
++ Response 200 (application/json)
+
+
+### leave Live [DLETE]
+
+指定したライブの参加を取り消す
+
++ Request
+    + Attributes
+        + live_id: `999` (number) - ライブID
+
++ Response 200 (application/json)
+
+
+## User Live Alarms [/v1/users/me/alarms]
+
+### set alarm for Live [POST]
+
+指定したライブの販売開始を通知する設定をON
+
++ Request
+    + Attributes
+        + live_id: `999` (number) - ライブID
+
++ Response 200 (application/json)
+
+
+### remove alarm for Live [DLETE]
+
+指定したライブの販売開始を通知する設定をOFF
+
++ Request
+    + Attributes
+        + live_id: `999` (number) - ライブID
+
++ Response 200 (application/json)
+
 
 ## User Artists [/v1/users/me/artists]
 
