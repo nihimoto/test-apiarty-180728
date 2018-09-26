@@ -63,7 +63,7 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 ログインしているユーザーの情報を変更する
 
 + Response 200 (application/json)
-    + Attributes(user)
+    + Attributes(userEdit)
 
 
 ## User Lives [/v1/users/me/lives]
@@ -437,6 +437,13 @@ Twitterの情報を使っておすすめライブを返す
 + birthday: `1999-01-01` - 誕生日
 + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 
+## userEdit
++ id: `999` (number) - primary key
++ sex: `femail` (string) - 男女 mail:男 femail:女 other:その他
++ birthday: `1999-01-01` - 誕生日
++ prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
++ apns_token: `xxxxxxxxxxxxxxxxxxxx` (string) - APNs用のデバイストークン
+
 ## userWithToken
 + id: `999` (number) - primary key
 + sex: `femail` (string) - 男女 mail:男 femail:女 other:その他
@@ -446,7 +453,7 @@ Twitterの情報を使っておすすめライブを返す
 
 ## notifications
 + type: `newcomming` (string) - 通知の種類／new_live: 新着ライブ通知、offer_start_lotty:抽選開始通知、offer_start_first_come:先着開始通知
-+ message: `[artist.name] がライブ情報を更新しました` (string) - 表示用メッセージ、新着の◯時間前表示以外のメッセージは全てテキスト生成済みで返す／時刻表示はpublish_atから計算して出す
++ message: `東京スカパラダイスオーケストラ がライブ情報を更新しました` (string) - 表示用メッセージ、新着の◯時間前表示以外のメッセージは全てテキスト生成済みで返す／時刻表示はpublish_atから計算して出す
 + `publish_at`: `July 11, 2018 09:00` (string) - 表示用日時
 + lives (array[lives])
 
