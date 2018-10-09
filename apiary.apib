@@ -202,42 +202,53 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 
 ## Recommend Lives from AppleMusic [/v1/lives/recomends/apple_music]
 
-### (TODO) Recommend from AppleMusic [POST]
+### get Developer token for AppleMusic [GET]
+DeveloperTokenを生成して返す
+
++ Parameters
+
++ Response 200 (application/json)
+    + Headers
+    + Attribute
+        + `developer\_token`:`xxxxxxxxxxxxxxxx` (string) - ApleMusicのAPIを使用するためのdeveloper_key
+
+
+### Recommend from AppleMusic [POST]
 AppleMusicの情報を使っておすすめライブを返す
 
 + Request
-    + Attributes (Sample2)
+    + Attributes 
+        + user_token: `xxxxx` (string) - AppleMusicUserToken／個人データにアクセスするために使う
 
 + Response 200 (application/json)
-
     + Headers
-    + Attributes (Sample1)
+    + Attributes (listLives)
 
 ## Recommend Lives from Soitify [/v1/lives/recomends/spotify]
 
-### (TODO) Recommend from Soitify [POST]
+### Recommend from Soitify [POST]
 Soitifyの情報を使っておすすめライブを返す
 
 + Request
-    + Attributes (Sample2)
+    + Attributes 
+        + access_token: `xxxxx` (string) - SpotifyAccessToken／個人データにアクセスするために使う
 
 + Response 200 (application/json)
-
     + Headers
-    + Attributes (Sample1)
+    + Attributes (listLives)
 
 ## Recommend Lives from Twitter [/v1/lives/recomends/twitter]
 
-### (TODO) Recommend from Twitter [POST]
+### Recommend from Twitter [POST]
 Twitterの情報を使っておすすめライブを返す
 
 + Request
-    + Attributes (Sample2)
-
+    + Attributes 
+        + access_token: `xxxxx` (string) - TwitterAccessToken／個人データにアクセスするために使う
+        + access_token_secret: `xxxxx` (string) - TwitterAccessTokenSecret／個人データにアクセスするために使う
 + Response 200 (application/json)
-
     + Headers
-    + Attributes (Sample1)
+    + Attributes (listLives)
 
 ## Artists [/v1/artists]
 
@@ -339,6 +350,7 @@ Twitterの情報を使っておすすめライブを返す
 + lowest_price: `1900` (number) - チケットの最低価格、ほかテーブルから予め計算
 + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
 + area_code: `1` (number) - エリアコード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
++ note: `これは備考です` (string) - 備考テキスト／編集はツールから（予定
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
