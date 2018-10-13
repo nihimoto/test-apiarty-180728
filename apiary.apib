@@ -158,6 +158,51 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 + Response 204 (application/json)
 
 
+## Developer token for AppleMusic [/v1/users/me/artists/apple_music/developer_token]
+
+### get Developer token for AppleMusic [GET]
+DeveloperTokenを生成して返す
+
++ Parameters
+
++ Response 200 (application/json)
+    + Headers
+    + Attribute
+        + `developer\_token`:`xxxxxxxxxxxxxxxx` (string) - ApleMusicのAPIを使用するためのdeveloper_key
+
+## User Artists with Apple Music [/v1/users/me/artists/apple_music]
+
+### auto follow by apple music [POST]
+AppleMusicの情報を使って自動フォローを実行する
+
++ Request
+    + Attributes 
+        + user_token: `xxxxx` (string) - AppleMusicUserToken／個人データにアクセスするために使う
+
++ Response 200 (application/json)
+
+## User Artists with Spotify [/v1/users/me/artists/spotify]
+
+### auto follow by Soitify [POST]
+Spotifyの情報を使って自動フォローを実行する
+
++ Request
+    + Attributes 
+        + access_token: `xxxxx` (string) - SpotifyAccessToken／個人データにアクセスするために使う
+
++ Response 200 (application/json)
+
+## User Artists with Twitter [/v1/users/me/artists/twitter]
+
+### auto follow by Twitter [POST]
+Twitterの情報を使って自動フォローを実行する
+
++ Request
+    + Attributes 
+        + access_token: `xxxxx` (string) - TwitterAccessToken／個人データにアクセスするために使う
+        + access_token_secret: `xxxxx` (string) - TwitterAccessTokenSecret／個人データにアクセスするために使う
++ Response 200 (application/json)
+
 ## User Notifications [/v1/users/me/notifications]
 
 ### get notifications [GET]
@@ -201,57 +246,6 @@ https://github.com/toast-id/toast-crawl-manager/wiki/%E3%82%AF%E3%83%AD%E3%83%BC
 + Response 200 (application/json)
     + Attributes(lives)
 
-
-## Developer token for AppleMusic [/v1/recommends/apple_music/developer_token]
-
-### get Developer token for AppleMusic [GET]
-DeveloperTokenを生成して返す
-
-+ Parameters
-
-+ Response 200 (application/json)
-    + Headers
-    + Attribute
-        + `developer\_token`:`xxxxxxxxxxxxxxxx` (string) - ApleMusicのAPIを使用するためのdeveloper_key
-
-## Recommend Lives from AppleMusic [/v1/recommends/apple_music]
-
-### Recommend from AppleMusic [POST]
-AppleMusicの情報を使っておすすめライブを返す
-
-+ Request
-    + Attributes 
-        + user_token: `xxxxx` (string) - AppleMusicUserToken／個人データにアクセスするために使う
-
-+ Response 200 (application/json)
-    + Headers
-    + Attributes (listLives)
-
-## Recommend Lives from Soitify [/v1/recommends/spotify]
-
-### Recommend from Soitify [POST]
-Soitifyの情報を使っておすすめライブを返す
-
-+ Request
-    + Attributes 
-        + access_token: `xxxxx` (string) - SpotifyAccessToken／個人データにアクセスするために使う
-
-+ Response 200 (application/json)
-    + Headers
-    + Attributes (listLives)
-
-## Recommend Lives from Twitter [/v1/recommends/twitter]
-
-### Recommend from Twitter [POST]
-Twitterの情報を使っておすすめライブを返す
-
-+ Request
-    + Attributes 
-        + access_token: `xxxxx` (string) - TwitterAccessToken／個人データにアクセスするために使う
-        + access_token_secret: `xxxxx` (string) - TwitterAccessTokenSecret／個人データにアクセスするために使う
-+ Response 200 (application/json)
-    + Headers
-    + Attributes (listLives)
 
 ## Artists [/v1/artists]
 
