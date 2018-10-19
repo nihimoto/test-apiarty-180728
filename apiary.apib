@@ -170,25 +170,15 @@ DeveloperTokenを生成して返す
     + Attribute
         + `developer\_token`:`xxxxxxxxxxxxxxxx` (string) - ApleMusicのAPIを使用するためのdeveloper_key
 
-## User Artists with Apple Music [/v1/users/me/artists/apple_music]
 
-### auto follow by apple music [POST]
-AppleMusicの情報を使って自動フォローを実行する
+## User Artists with Apple Services [/v1/users/me/artists/apple_services]
+
+### auto follow by apple music & artist_name [POST]
+AppleMusicの情報とアーティスト名一覧（ミュージックアプリ用）を使って自動フォローを実行する
 
 + Request
     + Attributes 
         + user_token: `xxxxx` (string) - AppleMusicUserToken／個人データにアクセスするために使う
-
-+ Response 200 (application/json)
-
-## User Artists with Artist Names [/v1/users/me/artists/artist_names]
-
-### auto follow by artist names [POST]
-アーティスト名の一覧を受け取って、一蘭に合致するアーティストをフォローする
-※主にミュージックアプリ用
-
-+ Request
-    + Attributes 
         + `artist_names`: `["Mr.Children","きゃりーぱみゅぱみゅ",...]` (array) - フォロー対象となるアーティスト名の配列
 
 + Response 200 (application/json)
