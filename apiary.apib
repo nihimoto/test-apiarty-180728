@@ -228,7 +228,8 @@ Twitterの情報を使って自動フォローを実行する
     + Attributes
         + mode: `plan` (string) - plan:予定 , history:履歴
         + artist_id: `999` (number) - アーティストIDで検索
-        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索 TODO 部分一致？
+        + artist_name: `東京スカパラダイスオーケストラ` (string) - アーティスト名で検索
+        + artist_status: `1` (number) - アーティストのステータス／1:地域別おすすめリストの表示対象 2:対象外
         + prefecture_code: `13` (number) - 都道府県コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
         + area_code: `5` (number) - 地域コード／対応表は https://github.com/toast-id/toast-crawl-manager/wiki/%E9%83%BD%E9%81%93%E5%BA%9C%E7%9C%8C%E3%83%BB%E3%82%A8%E3%83%AA%E3%82%A2 を参照
         + followed_artist: `1` (number) - フォローしているアーティストが参加するLIVEだけを返す／1: 限定する
@@ -340,6 +341,7 @@ Twitterの情報を使って自動フォローを実行する
 + total: `114` (number) - リストの内の全個数
 + path: `http://toast.dev3.the-triad.jp:55171/api/v1/lives?page=23` (string) - ベースとなるAPIのURL
 + per_page: `5` (number) - ページあたりの表示件数
++ badge_count: `9` (number) - バッジに表示すべき数
 
 ## lives
 + id: `999` (number) - primary key
@@ -358,6 +360,7 @@ Twitterの情報を使って自動フォローを実行する
 + updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
 + artists (array[artists])
 + playguides (array[playguides])
++ badge_count: `9` (number) - バッジに表示すべき数
 
 ## venueDetail
 + id: `999` (number) - primary key
@@ -416,7 +419,6 @@ Twitterの情報を使って自動フォローを実行する
 + offers (offers)
 + offers_gathered_url: `http://eplus.jp/sys/T1U14P002233228P0030005` (string) -  3社への各チケット申し込みページURL。
 + venue_detail_id: `999` (number) - 紐づくvenueDetailのPK
-+ initial_artist_id: `999` (number) - artists起点にplayguideを生成する際、最初にplayguide_codeを発行したartistのidを記録 TODO web側では不要？
 + created_at: `april 24, 2018 14:23` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `june 05, 2018 19:17` (string) - 更新日時 TODO 日付形式要確認
 + tickets (array[tickets])
