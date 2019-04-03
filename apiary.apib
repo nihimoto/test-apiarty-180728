@@ -356,6 +356,8 @@ Twitterの情報を使って自動フォローを実行する
 + venue_detail_id: `999` (number) - 会場ID
 + venue_detail (venueDetail)
 + count_joined: `99` (number) - ライブの参加人数 
++ is_joined: true (boolean) - 参加する済みかどうか
++ has_alarm: true (boolean) - 通知設定済みかどうか
 + created_at: `June 23, 2018 08:43` (string) - 登録日時 TODO 日付形式要確認
 + updated_at: `June 23, 2018 08:43` (string) - 更新日時 TODO 日付形式要確認
 + artists (array[artists])
@@ -470,6 +472,8 @@ Twitterの情報を使って自動フォローを実行する
 ## notifications
 + type: `newcomming` (string) - 通知の種類／new_live: 新着ライブ通知、offer_start_lotty:抽選開始通知、offer_start_first_come:先着開始通知
 + message: `東京スカパラダイスオーケストラ がライブ情報を更新しました` (string) - 表示用メッセージ、新着の◯時間前表示以外のメッセージは全てテキスト生成済みで返す／時刻表示はpublish_atから計算して出す
++ artist_id: `1` (number) - アーティストID
++ artists (array[artists])
 + `publish_at`: `July 11, 2018 09:00` (string) - 表示用日時
 + lives (array[lives])
 
